@@ -24,7 +24,8 @@ class BooksApp extends Component {
     this.setState((state) => ({
       books: state.books.map((b) => {
         if (b.id === book.id){
-          b.shelf=shelf.code
+          BooksAPI.update(b, shelf)
+          b.shelf=shelf
         }
           return b
       })
