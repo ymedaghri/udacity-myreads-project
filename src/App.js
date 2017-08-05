@@ -18,33 +18,33 @@ class BooksApp extends Component {
 
   onMoveBookToShelf = (book, shelf) => {
     BooksAPI.update(book, shelf)
-    
+
     book.shelf=shelf
 
-    this.setState((state) => ({
-      books: state.books
-    }))
-          
+    this.setState((state) => (
+    (shelf==='none')?{books: state.books.filter(book2=>book2.id!=book.id)}:{books: state.books}
+    ))
+
   }
 
   onAddBookToShelf = (book, shelf) => {
-    
+
     BooksAPI.update(book, shelf)
-    
+
     book.shelf=shelf
-    
+
     this.setState((state) => ({
       books: state.books.concat([book])
     }))
 
-          
+
   }
 
   render() {
     return (
       <div className="app">
       <Route path='/search' render={()=>(
-        <SearchBooks onAddBookToShelf={this.onAddBookToShelf}/>
+        <SearchBooks existingBooks={this.state.books} onAddBookToShelf={this.onAddBookToShelf}/>
         )}
       />
       <Route exact path='/' render={()=>(

@@ -7,12 +7,16 @@ static propTypes = {
     onMoveBookToShelf: PropTypes.func.isRequired
   }
 	render() {
-		const { book, onMoveBookToShelf } = this.props
+		const { book, onMoveBookToShelf, displayNone} = this.props
+    let option_none = null;
+    if (displayNone) {
+      option_none = <option value="none">None</option>;
+    }
 		return (
               <div className="book">
                 <div className="book-top">
                   <div className="book-cover" style={
-                    { width:`${192}`, height:`${192}`, backgroundImage: `url(${book.imageLinks && book.imageLinks.smallThumbnail})` }
+                    { width:`${128}`, height:`${193}`, backgroundImage: `url(${book.imageLinks && book.imageLinks.smallThumbnail})` }
                   }></div>
                   <div className="book-shelf-changer">
                     <select value={book.shelf} onChange={(e) => onMoveBookToShelf(book, e.target.value)}>
@@ -20,7 +24,7 @@ static propTypes = {
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
                       <option value="read">Read</option>
-                      <option value="none">None</option>
+                      {option_none}
                     </select>
                   </div>
                 </div>
